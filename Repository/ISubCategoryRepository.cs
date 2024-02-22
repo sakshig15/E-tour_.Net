@@ -1,12 +1,12 @@
 ﻿using ETour.DbRepos;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 
 namespace ETour.Repository
 {
-    public interface ISubCategory
+    public interface ISubCategoryRepository
     {
-        public List<SubCategory> getSubCategory();
-        public Optional<SubCategory> getSubCategoryById(int id);
-
+        public Task<ActionResult<IEnumerable<SubCategory>?>> getSubcategories();
+        public Task<SubCategory> getSubCategoryById(int id);
     }
 }

@@ -1,13 +1,13 @@
 ﻿using ETour.DbRepos;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 
 namespace ETour.Repository
 {
     public interface ICategoryRepository
     {
-        public List<Category> getCategory();
-        public Optional<Category> getCategoryById(int id);
 
-
+        public Task<ActionResult<IEnumerable<Category>?>> getCategories();
+        public Task<Category> getCategoryById(int id);
     }
 }

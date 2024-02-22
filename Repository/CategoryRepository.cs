@@ -1,4 +1,6 @@
 ﻿using ETour.DbRepos;
+using ETour.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,14 +8,35 @@ namespace ETour.Repository
 {
     public class CategoryRepository : ICategoryRepository
     {
-        public List<Category> getCategory()
+        private readonly ScottDbContext context;
+
+        public CategoryRepository(ScottDbContext context)
         {
-            throw new NotImplementedException();
+            this.context = context;
         }
 
-        public Optional<Category> getCategoryById(int id)
+        public async Task<ActionResult<IEnumerable<Category>?>> getCategories()
         {
-            throw new NotImplementedException();
+            if(context == null)
+            {
+                return null;
+            }
+            return context.Categories.ToList();
+
+        }
+
+        public async Task<Category> getCategoryById(int id)
+        {
+            if(context == null)
+            {
+                return null;
+            }
+            var category = await context.Categories.FindAsync(id);
+            if(category == null)
+            {
+                return null;
+            }
+            return category;
         }
     }
 }
